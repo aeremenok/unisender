@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -626,14 +627,14 @@ public class UniSender {
     }
 
     private static String indexed(String property, int index) {
-        return property + "[" + index + "]";
+        return property + '[' + index + ']';
     }
 
     private List<SendEmailResponse> executeSendEmail(Map<String, String> map)
             throws UniSenderConnectException, UniSenderInvalidResponseException, UniSenderMethodException {
         JSONObject response = executeMethod("sendEmail", map);
         try {
-            final List<SendEmailResponse> result = new ArrayList<SendEmailResponse>();
+            final List<SendEmailResponse> result = new LinkedList<SendEmailResponse>();
             final JSONObject res = response.optJSONObject("result");
             if (res == null) {
                 //we've got an array
