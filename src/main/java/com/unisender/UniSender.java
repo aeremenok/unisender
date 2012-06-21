@@ -634,7 +634,7 @@ public class UniSender {
         JSONObject response = executeMethod("sendEmail", map);
         try {
             final List<SendEmailResponse> result = new ArrayList<SendEmailResponse>();
-            final JSONObject res = response.getJSONObject("result");
+            final JSONObject res = response.optJSONObject("result");
             if (res == null) {
                 //we've got an array
                 JSONArray resa = response.getJSONArray("result");
@@ -643,7 +643,7 @@ public class UniSender {
                     result.add(new SendEmailResponse(jso.getString("email"), jso.getString("id"), jso.getString("error")));
                 }
             } else {
-                result.add(new SendEmailResponse(res.getString("email"), res.getString("id"), res.getString("error")));
+                result.add(new SendEmailResponse(res.getString("email"), res.getString("email_id"), res.getString("error")));
             }
 
             return result;
