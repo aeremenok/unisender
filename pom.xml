@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>UniSender</groupId>
 	<artifactId>UniSender</artifactId>
-	<version>0.0.2-SNAPSHOT</version>
+	<version>0.0.2-0</version>
 	<packaging>jar</packaging>
 
 	<name>UniSender</name>
@@ -69,6 +69,19 @@
             <scope>test</scope>
         </dependency>
 	</dependencies>
+
+    <distributionManagement>
+        <repository>
+            <id>internal-repo</id>
+            <name>central</name>
+            <url>http://10.2.165.205/artifactory/libs-releases-local</url>
+        </repository>
+        <snapshotRepository>
+            <id>internal-repo</id>
+            <name>snapshots</name>
+            <url>http://10.2.165.205/artifactory/libs-snapshots-local</url>
+        </snapshotRepository>
+    </distributionManagement>
 
     <properties>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
