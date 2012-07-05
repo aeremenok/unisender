@@ -164,7 +164,7 @@ public class UniSender {
 		}
 	}
 
-	String execute(URL url, String postQuery) throws UniSenderConnectException {
+	protected String execute(URL url, String postQuery) throws UniSenderConnectException {
 		HttpURLConnection urlc = null;
 		try {
 			urlc = (HttpURLConnection) url.openConnection();

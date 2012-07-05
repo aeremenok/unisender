@@ -46,7 +46,7 @@ public class UnisenderTest {
     public void setUp() throws Exception {
         uniSender = new UniSender("apikey") {
             @Override
-            String execute(URL url, String postQuery) throws UniSenderConnectException {
+            protected String execute(URL url, String postQuery) throws UniSenderConnectException {
                 lastPostQuery = postQuery;
                 return nextResponse;
             }
