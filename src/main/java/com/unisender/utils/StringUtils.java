@@ -1,16 +1,17 @@
 package com.unisender.utils;
 
+import java.util.Collection;
 import java.util.List;
 
 import com.unisender.entities.MailList;
 
 public class StringUtils {
-	public static String join(List list, String seprator){
-		if (list == null)
+	public static String join(Collection collection, String seprator){
+		if (collection == null)
 			return null;
 		StringBuilder sb = new StringBuilder();
 		
-		for(Object o: list){
+		for(Object o: collection){
 			if (sb.length() != 0){
 				sb.append(seprator);
 			}
