@@ -701,12 +701,12 @@ public class UniSender {
             }
 
             String singleStatus = res.optString("status");
-            if (singleStatus != null) {
+            if (singleStatus != null && !singleStatus.trim().isEmpty()) {
                 String singleId = emailIds.iterator().next();
                 return Collections.singletonMap(singleId, singleStatus);
             }
 
-            JSONArray resa = response.getJSONArray("statuses");
+            JSONArray resa = res.getJSONArray("statuses");
             Map<String, String> result = new HashMap<String, String>();
             for (int i = 0; i < resa.length(); ++i) {
                 JSONObject jso = resa.getJSONObject(i);
