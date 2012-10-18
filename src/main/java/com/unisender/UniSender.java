@@ -3,7 +3,9 @@ package com.unisender;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -16,6 +18,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.zip.GZIPInputStream;
+import java.util.zip.GZIPOutputStream;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -69,6 +73,7 @@ public class UniSender {
 	private String language;
 	private Boolean useHttps;
 	private boolean isTestMode = false;
+    private boolean useGzip = false;
 	
 	static final String API_HOST = "api.unisender.com";
 	static final String API_ENCODING = "UTF-8";
@@ -95,7 +100,11 @@ public class UniSender {
 		this(config.getApiKey(), config.getLanguage(), config.isTestMode(), config.useHttps());
 	}
 
-	private URL makeURL(String method) {
+    public void setUseGzip(boolean useGzip) {
+        this.useGzip = useGzip;
+    }
+
+    private URL makeURL(String method) {
 		return makeURL(this.language, method);
 	}
 
@@ -180,12 +189,12 @@ public class UniSender {
 			urlc.setDoOutput(true);
 			urlc.setDoInput(true);
 
-			DataOutputStream os = new DataOutputStream(urlc.getOutputStream());
+			DataOutputStream os = new DataOutputStream(getOutputStream(urlc));
 			os.writeBytes(postQuery);
 			os.flush();
 			os.close();
 
-			InputStreamReader isr = new InputStreamReader(urlc.getInputStream());
+			InputStreamReader isr = new InputStreamReader(getInputStream(urlc));
 			BufferedReader rd = new BufferedReader(isr);
 
 			char[] buffer = new char[255];
@@ -205,7 +214,22 @@ public class UniSender {
 			}
 		}
 	}
-	private Map<String, String> createMap(){
+
+    protected InputStream getInputStream(HttpURLConnection urlc) throws IOException {
+        if (useGzip) {
+            return new GZIPInputStream(urlc.getInputStream());
+        }
+        return urlc.getInputStream();
+    }
+
+    protected OutputStream getOutputStream(HttpURLConnection urlc) throws IOException {
+        if (useGzip) {
+            return new GZIPOutputStream(urlc.getOutputStream());
+        }
+        return urlc.getOutputStream();
+    }
+
+    private Map<String, String> createMap(){
 		return new LinkedHashMap<String, String>();
 	}
 	
