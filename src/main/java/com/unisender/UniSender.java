@@ -73,8 +73,9 @@ public class UniSender {
 	private String language;
 	private Boolean useHttps;
 	private boolean isTestMode = false;
-    private boolean useGzip = false;
-	
+    private boolean useGzipForInput = false;
+    private boolean useGzipForOutput = false;
+
 	static final String API_HOST = "api.unisender.com";
 	static final String API_ENCODING = "UTF-8";
 	
@@ -100,8 +101,12 @@ public class UniSender {
 		this(config.getApiKey(), config.getLanguage(), config.isTestMode(), config.useHttps());
 	}
 
-    public void setUseGzip(boolean useGzip) {
-        this.useGzip = useGzip;
+    public void setUseGzipForInput(boolean useGzipForInput) {
+        this.useGzipForInput = useGzipForInput;
+    }
+
+    public void setUseGzipForOutput(boolean useGzipForOutput) {
+        this.useGzipForOutput = useGzipForOutput;
     }
 
     private URL makeURL(String method) {
@@ -216,14 +221,14 @@ public class UniSender {
 	}
 
     protected InputStream getInputStream(HttpURLConnection urlc) throws IOException {
-        if (useGzip) {
+        if (useGzipForInput) {
             return new GZIPInputStream(urlc.getInputStream());
         }
         return urlc.getInputStream();
     }
 
     protected OutputStream getOutputStream(HttpURLConnection urlc) throws IOException {
-        if (useGzip) {
+        if (useGzipForOutput) {
             return new GZIPOutputStream(urlc.getOutputStream());
         }
         return urlc.getOutputStream();
