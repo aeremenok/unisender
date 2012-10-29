@@ -75,6 +75,7 @@ public class UniSender {
 	private boolean isTestMode = false;
     private boolean useGzipForInput = false;
     private boolean useGzipForOutput = false;
+    private boolean useGzipForRequestHeader = false;
 
 	static final String API_HOST = "api.unisender.com";
 	static final String API_ENCODING = "UTF-8";
@@ -107,6 +108,10 @@ public class UniSender {
 
     public void setUseGzipForOutput(boolean useGzipForOutput) {
         this.useGzipForOutput = useGzipForOutput;
+    }
+
+    public void setUseGzipForRequestHeader(boolean useGzipForRequestHeader) {
+        this.useGzipForRequestHeader = useGzipForRequestHeader;
     }
 
     private URL makeURL(String method) {
@@ -190,6 +195,10 @@ public class UniSender {
 			urlc.setRequestProperty("Content-type", "application/x-www-form-urlencoded");
 			urlc.setRequestProperty("Content-Length", "" + postQuery.getBytes().length);
 			urlc.setRequestProperty("Accept", "application/json, text/html, text/plain, text/javascript");
+            if (useGzipForRequestHeader) {
+                urlc.setRequestProperty("Content-Encoding", "gzip");
+                urlc.setRequestProperty("Accept-Encoding", "gzip");
+            }
 
 			urlc.setDoOutput(true);
 			urlc.setDoInput(true);
