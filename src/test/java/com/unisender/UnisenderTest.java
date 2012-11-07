@@ -65,7 +65,7 @@ public class UnisenderTest {
                 MAIL_2, new EmailMessage(SENDER_NAME, SENDER_EMAIL, SUBJECT_2, BODY_2)
         );
 
-        BatchSendEmailRequest request = new BatchSendEmailRequest(messages, mailList, null, null, null);
+        BatchSendEmailRequest request = new BatchSendEmailRequest(messages, mailList, null, null, null, userCampaignId);
 
         nextResponse = toJsonMessages(createMap(MAIL_1, "", MAIL_2, ""));
         List<SendEmailResponse> responses = uniSender.batchSendEmail(request);
