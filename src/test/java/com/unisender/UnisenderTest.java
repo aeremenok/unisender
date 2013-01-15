@@ -90,7 +90,7 @@ public class UnisenderTest {
         assertLastQueryContains("subject[1]=" + SUBJECT_2);
         assertLastQueryContains("body[1]=" + BODY_2);
         assertLastQueryContains("user_campaign_id=" + USER_CAMPAIGN_ID);
-        assertLastQueryContains("headers[0]=Reply-To=" + REPLY_TO);
+        assertLastQueryContains("headers[0]=Reply-To:" + REPLY_TO);
     }
 
     @Test

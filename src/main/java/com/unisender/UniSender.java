@@ -669,7 +669,7 @@ public class UniSender {
         Map<String, String> headers = new HashMap<String, String>();
         MapUtils.putIfNotNull(headers, "Reply-To", message.getReplyTo());
         MapUtils.putIfNotNull(headers, "Priority", message.getPriority());
-        return StringUtils.join(headers, ";", "=");
+        return StringUtils.join(headers, ";", ":");
     }
 
     private static String indexed(String property, int index) {
